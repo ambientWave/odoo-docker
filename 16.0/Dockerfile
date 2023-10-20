@@ -119,8 +119,9 @@ expose 8071
 
 USER odoo
 
-ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
-COPY ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
+RUN mkdir -p /usr/custom
+# ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
+COPY ./custom /usr/custom
 
 LABEL version="16.0"
 LABEL release="20221104"
