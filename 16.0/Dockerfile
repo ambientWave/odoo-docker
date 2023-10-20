@@ -74,7 +74,7 @@ RUN set -x; \
         && /usr/bin/env pip install \
             odoo-tools \ 
              \
-        && odootools manage setup --release "20221104" --repo "https://github.com/odoo/odoo.git" --ref "" "16.0" \
+        && odootools manage setup --release "latest" --repo "https://github.com/odoo/odoo.git" --ref "" "16.5alpha1" \
         && cd / \
         && apt-get --purge remove -y \
             # build-essential \
