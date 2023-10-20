@@ -121,12 +121,7 @@ USER odoo
 
 # RUN mkdir /custom
 # ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
-RUN mkdir /custom \
-    && groupadd -r -g ${GID} odoo \
-    && useradd -r -u ${UID} -g odoo -b /var/lib -m odoo \
-    # && chown odoo /etc/odoo/odoo.conf \
-    && chown -R odoo:odoo /custom \
-    && echo "odoo ALL=(ALL:ALL) NOPASSWD:SETENV: /usr/local/bin/odootools" >> /etc/sudoers
+
 COPY ./custom /custom
 
 LABEL version="16.0"
@@ -144,5 +139,5 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
-
+RUN odoo --addons-path=/custom --database=postgres_odoo_16_mybuild  --db_user=postgres_odoo_16_mybuild_user --db_password=YbWQLepYPj4kijIO2URVl303PWVAc6v6  --db_host=dpg-cknse0b1a5fs73b77vn0-a.frankfurt-postgres.render.com --db_port=5432
 cmd ["odoo"]
