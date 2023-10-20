@@ -125,7 +125,7 @@ RUN mkdir /custom \
     && groupadd -r -g ${GID} odoo \
     && useradd -r -u ${UID} -g odoo -b /var/lib -m odoo \
     # && chown odoo /etc/odoo/odoo.conf \
-    && chown -R odoo:odoo /addons \
+    && chown -R odoo:odoo /custom \
     && echo "odoo ALL=(ALL:ALL) NOPASSWD:SETENV: /usr/local/bin/odootools" >> /etc/sudoers
 COPY ./custom /custom
 
