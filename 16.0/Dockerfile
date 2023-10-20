@@ -121,6 +121,12 @@ USER odoo
 
 # RUN mkdir /custom
 # ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
+RUN mkdir /custom \
+    && groupadd -r -g ${GID} odoo \
+    && useradd -r -u ${UID} -g odoo -b /var/lib -m odoo \
+    # && chown odoo /etc/odoo/odoo.conf \
+    && chown -R odoo:odoo /addons \
+    && echo "odoo ALL=(ALL:ALL) NOPASSWD:SETENV: /usr/local/bin/odootools" >> /etc/sudoers
 COPY ./custom /custom
 
 LABEL version="16.0"
