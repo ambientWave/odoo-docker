@@ -119,9 +119,9 @@ expose 8071
 
 USER odoo
 
-RUN mkdir /custom
+# RUN mkdir /custom
 # ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
-COPY ./custom /custom
+COPY ./custom /
 
 LABEL version="16.0"
 LABEL release="20221104"
