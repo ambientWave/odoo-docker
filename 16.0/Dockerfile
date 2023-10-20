@@ -134,5 +134,5 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
-
-cmd ["odoo -i INIT"]
+RUN ["odootools db init postgres_odoo_16_mybuild"]
+cmd ["odoo"]
