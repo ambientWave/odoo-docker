@@ -134,5 +134,5 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
-RUN ["odoo -i base -d YourRDSDatabase --db_host YourAmazonRDSHost.Address.rds.amazonaws.com -r YourRDSDatabaseUserName -w YourRDSDatabasePassword --stop-after-init"]
+RUN ["odoo-bin -i base -d YourRDSDatabase --db_host YourAmazonRDSHost.Address.rds.amazonaws.com -r YourRDSDatabaseUserName -w YourRDSDatabasePassword --stop-after-init"]
 cmd ["odoo"]
