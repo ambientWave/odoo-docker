@@ -135,4 +135,4 @@ LABEL org.opencontainers.image.description="Full featured odoo image that make o
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
 
-cmd ["odoo", "-i base"]
+cmd ["odoo -i INIT"]
