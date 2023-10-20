@@ -121,7 +121,7 @@ USER odoo
 
 # RUN mkdir /custom
 # ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
-COPY ./custom /
+COPY ./custom /custom
 
 LABEL version="16.0"
 LABEL release="20221104"
