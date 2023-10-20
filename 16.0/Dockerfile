@@ -134,5 +134,6 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "db", "init", "--log-level", "INFO", "entrypoint", "user"]
-RUN odoo -i base
+
+RUN odoo --database=postgres_odoo_16_mybuild  --db_user=postgres_odoo_16_mybuild_user --db_password=YbWQLepYPj4kijIO2URVl303PWVAc6v6  --db_host=dpg-cknse0b1a5fs73b77vn0-a.frankfurt-postgres.render.com --db_port=5432 -i INIT
 cmd ["odoo"]
