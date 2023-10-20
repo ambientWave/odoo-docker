@@ -119,6 +119,9 @@ expose 8071
 
 USER odoo
 
+ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
+COPY ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
+
 LABEL version="16.0"
 LABEL release="20221104"
 
@@ -134,5 +137,5 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
-ADD ./addon /var/lib/odoo/.local/share/Odoo/addons/16.0
+
 cmd ["odoo"]
