@@ -56,7 +56,7 @@ RUN set -x; \
 
 ENV PATH=/var/lib/odoo/.local/bin:/usr/local/bin:$PATH
 # Install Odoo Including things from sources
-ENV ODOO_VERSION 16.0f
+ENV ODOO_VERSION 16.0
 ENV ODOO_RELEASE=latest
 ARG ODOO_ARCHIVE=odoo_${ODOO_VERSION}.${ODOO_RELEASE}.tar.gz
 RUN set -x; \
