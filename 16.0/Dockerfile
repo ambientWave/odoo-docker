@@ -142,6 +142,6 @@ LABEL org.opencontainers.image.ref.name="16.0"
 LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
-ENTRYPOINT ["odootools", "db", "init", "--with-demo", "odoo_clean", "--log-level", "INFO", "entrypoint", "user"]
+ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user", "db", "init", "--with-demo", "odoo_clean"]
 
 cmd ["odoo"]
