@@ -105,9 +105,11 @@ RUN mkdir /addons \
 
 # VOLUME /etc/odoo
 VOLUME /var/lib/odoo
-
+COPY ./custom /custom
 ENV ODOO_RC /var/lib/odoo/odoo.conf
 ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
+ENV ODOO_EXTRA_PATH /custom
+
 # Env variable defined to monitor the kind of service running
 # it could be a staging/production/test or anything and undefined
 # is the default in case we need to know servers that aren't correctly
@@ -122,7 +124,7 @@ USER odoo
 # RUN mkdir /custom
 # ADD ./custom /var/lib/odoo/.local/share/Odoo/addons/16.0
 
-COPY ./custom /custom
+
 
 LABEL version="16.0"
 LABEL release="20221104"
@@ -139,6 +141,5 @@ LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
-RUN odoo --addons-path /custom --database=postgres_odoo_16_mybuild  --db_user=postgres_odoo_16_mybuild_user --db_password=YbWQLepYPj4kijIO2URVl303PWVAc6v6  --db_host=dpg-cknse0b1a5fs73b77vn0-a --db_port=5432
 
 cmd ["odoo"]
