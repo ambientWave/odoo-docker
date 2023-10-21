@@ -253,7 +253,7 @@ def get_excluded_paths():
 def get_valid_paths():
     base_addons = os.environ['ODOO_BASE_PATH']
 
-    base_addons_paths = [base_addons, '/addons','/custom']
+    base_addons_paths = [base_addons, '/addons'] # ,'/custom'
     base_addons_paths += get_extra_paths()
 
     valid_paths = find_addons_paths(base_addons_paths)
