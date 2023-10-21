@@ -110,7 +110,7 @@ VOLUME /custom
 ADD ./custom /usr/local/lib/python3.8/dist-packages/odoo/addons
 ENV ODOO_RC /var/lib/odoo/odoo.conf
 ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
-# ENV ODOO_EXTRA_PATH=/custom:/custom
+# ENV ODOO_EXTRA_PATH=/custom
 
 # Env variable defined to monitor the kind of service running
 # it could be a staging/production/test or anything and undefined
