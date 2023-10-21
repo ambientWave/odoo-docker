@@ -142,8 +142,12 @@ LABEL org.opencontainers.image.ref.name="16.0"
 LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
-ENTRYPOINT ["odootools", "db", "init", "--with-demo", "odoo_clean"]
+# ENTRYPOINT ["odootools", "db", "init", "--with-demo", "odoo_clean"]
 # ENTRYPOINT ["odootools", "--log-level INFO db init --with-demo odoo_clean", "entrypoint", "user"]
-# ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
+ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
 # ENTRYPOINT ["odootools --log-level INFO db init --with-demo odoo_clean", "entrypoint", "user"]
-# cmd ["odoo"]
+postgres://odoo_clean_user:0Y3m4LXFzCgW8lP4uJugNH9KqA2KBKVk@dpg-ckpvjnu2eoec73fm5t9g-a/odoo_clean
+
+RUN odoo --database=odoo_clean  --db_user=odoo_clean_user --db_password=0Y3m4LXFzCgW8lP4uJugNH9KqA2KBKVk --db_host=dpg-ckpvjnu2eoec73fm5t9g-a --db_port=5432 -i base
+
+cmd ["odoo"]
