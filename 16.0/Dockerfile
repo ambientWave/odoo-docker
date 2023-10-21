@@ -140,4 +140,4 @@ LABEL org.opencontainers.image.description="Full featured odoo image that make o
 
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
 
-cmd ["odoo"]
+cmd odoo --addons-path /custom
