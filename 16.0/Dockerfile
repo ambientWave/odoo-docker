@@ -138,6 +138,7 @@ LABEL org.opencontainers.image.ref.name="16.0"
 LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
-ENTRYPOINT ["odootools", "odooaddons", "/custom", "--log-level", "INFO", "entrypoint", "user"]
+ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
+RUN odoo --addons-path /custom,/usr/local/lib/python3.8/dist-packages/odoo/addons,/var/lib/odoo/.local/share/Odoo/addons/16.0 --database=postgres_odoo_16_mybuild  --db_user=postgres_odoo_16_mybuild_user --db_password=YbWQLepYPj4kijIO2URVl303PWVAc6v6  --db_host=dpg-cknse0b1a5fs73b77vn0-a --db_port=5432
 
 cmd ["odoo"]
