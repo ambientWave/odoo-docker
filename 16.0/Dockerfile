@@ -106,7 +106,7 @@ RUN mkdir /addons \
 # VOLUME /etc/odoo
 VOLUME /var/lib/odoo
 # ADD ./custom /custom
-VOLUME /custom
+# VOLUME /custom
 ADD ./custom /usr/local/lib/python3.8/dist-packages/odoo/addons
 ENV ODOO_RC /var/lib/odoo/odoo.conf
 ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
