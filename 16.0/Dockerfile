@@ -138,6 +138,6 @@ LABEL org.opencontainers.image.ref.name="16.0"
 LABEL org.opencontainers.image.title="Odoo 16.0"
 LABEL org.opencontainers.image.description="Full featured odoo image that make odoo deployment fun and secure."
 
-ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
+ENTRYPOINT ["odootools", "odooaddons", "/custom", "--log-level", "INFO", "entrypoint", "user"]
 
-cmd odoo --addons-path /custom
+cmd ["odoo"]
