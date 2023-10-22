@@ -146,6 +146,7 @@ LABEL org.opencontainers.image.description="Full featured odoo image that make o
 # ENTRYPOINT ["odootools", "--log-level INFO db init --with-demo odoo_clean", "entrypoint", "user"]
 ENTRYPOINT ["odootools", "--log-level", "INFO", "entrypoint", "user"]
 # ENTRYPOINT ["odootools --log-level INFO db init --with-demo odoo_clean", "entrypoint", "user"]
+RUN odoo --database=odoo_clean  --db_user=odoo_clean_user --db_password=0Y3m4LXFzCgW8lP4uJugNH9KqA2KBKVk --db_host=dpg-ckpvjnu2eoec73fm5t9g-a --db_port=5432 -u all
 
 # RUN odoo --database=odoo_clean  --db_user=odoo_clean_user --db_password=0Y3m4LXFzCgW8lP4uJugNH9KqA2KBKVk --db_host=dpg-ckpvjnu2eoec73fm5t9g-a --db_port=5432 -i base
 
