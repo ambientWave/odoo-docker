@@ -67,6 +67,11 @@ RUN curl -o odoo.deb -sSL https://nightly.odoo.com/14.0/nightly/deb/odoo_14.0.la
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
+# ADD ./custom /usr/local/lib/python3.8/dist-packages/odoo/addons
+ADD ./custom/base_synchro /mnt/extra-addons
+# ENV ODOO_RC /var/lib/odoo/odoo.conf
+# ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
+
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
