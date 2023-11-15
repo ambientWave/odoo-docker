@@ -1,24 +1,19 @@
-FROM debian:bullseye-slim
-MAINTAINER Odoo S.A. <info@odoo.com>
-
-SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
-
-# Generate locale C.UTF-8 for postgres and general locale data
-ENV LANG C.UTF-8
+FROM ursa/ubuntu-20.04:latest
+MAINTAINER Open Source Integrators <support@opensourceintegrators.com>
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt update \
+    && apt install -y --no-install-recommends \
         ca-certificates \
-        curl \
         dirmngr \
         fonts-noto-cjk \
         gnupg \
+        gosu \
+        gsfonts \
         libssl-dev \
         node-less \
         npm \
         python3-num2words \
-        python3-pdfminer \
         python3-pip \
         python3-phonenumbers \
         python3-pyldap \
@@ -28,6 +23,7 @@ RUN apt-get update && \
         python3-slugify \
         python3-vobject \
         python3-watchdog \
+        python3-wheel \
         python3-xlrd \
         python3-xlwt \
         xz-utils \
@@ -37,18 +33,14 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-    && GNUPGHOME="$(mktemp -d)" \
-    && export GNUPGHOME \
-    && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
-    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
-    && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
-    && gpgconf --kill all \
-    && rm -rf "$GNUPGHOME" \
-    && apt-get update  \
-    && apt-get install --no-install-recommends -y postgresql-client \
+ENV PGVERSION=14
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+    && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && apt update  \
+    && apt install --no-install-recommends -y postgresql-client-$PGVERSION \
     && rm -f /etc/apt/sources.list.d/pgdg.list \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
