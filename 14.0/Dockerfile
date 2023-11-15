@@ -57,7 +57,7 @@ RUN set -x; \
 ENV PATH=/var/lib/odoo/.local/bin:/usr/local/bin:$PATH
 # Install Odoo Including things from sources
 ENV ODOO_VERSION 14.0
-ENV ODOO_RELEASE=20221104
+ENV ODOO_RELEASE=latest
 ARG ODOO_ARCHIVE=odoo_${ODOO_VERSION}.${ODOO_RELEASE}.tar.gz
 RUN set -x; \
         apt-get update \
@@ -74,7 +74,7 @@ RUN set -x; \
         && /usr/bin/env pip install \
             odoo-tools \ 
              \
-        && odootools manage setup --release "20221104" --repo "https://github.com/odoo/odoo.git" --ref "" "14.0" \
+        && odootools manage setup --release "latest" --repo "https://github.com/odoo/odoo.git" --ref "" "14.0" \
         && cd / \
         && apt-get --purge remove -y \
             # build-essential \
@@ -105,6 +105,10 @@ RUN mkdir /addons \
 
 # VOLUME /etc/odoo
 VOLUME /var/lib/odoo
+
+ADD ./custom /usr/local/lib/python3.8/dist-packages/odoo/addons
+ENV ODOO_RC /var/lib/odoo/odoo.conf
+ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
 
 ENV ODOO_RC /var/lib/odoo/odoo.conf
 ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
