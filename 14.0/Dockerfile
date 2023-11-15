@@ -27,9 +27,9 @@ RUN set -x; \
             python3-psutil \
             python3-asn1crypto \
             curl \
-            # libpq-dev \
-            # libsasl2-2 \
-            # libldap-2.4-2 \
+            libpq-dev \
+            libsasl2-2 \
+            libldap-2.4-2 \
             # libxml2 \
             # libxmlsec1 \
             # libxslt1.1 \
