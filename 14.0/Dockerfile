@@ -27,6 +27,7 @@ RUN set -x; \
             python3-psutil \
             python3-asn1crypto \
             curl \
+            gcc \
             libpq-dev \
             libsasl2-2 \
             libldap-2.4-2 \
