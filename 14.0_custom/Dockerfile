@@ -68,13 +68,13 @@ COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
 
-RUN mkdir -p /mnt/extra-addons
-ADD ./custom/base_synchro /mnt/extra-addons
+# RUN mkdir -p /mnt/extra-addons
+# ADD ./custom/base_synchro /mnt/extra-addons
 
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
-    # && mkdir -p /mnt/extra-addons \
+    && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
