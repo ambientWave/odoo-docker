@@ -1,5 +1,5 @@
 FROM odoo:14
-RUN echo $USER
+RUN whoami
 
 RUN mkdir -p /mnt/extra-addons
 ADD ./custom/base_synchro /mnt/extra-addons/base_synchro
