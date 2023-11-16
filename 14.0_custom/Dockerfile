@@ -1,19 +1,24 @@
-FROM ursa/ubuntu-20.04:latest
-MAINTAINER Open Source Integrators <support@opensourceintegrators.com>
+FROM debian:buster-slim
+MAINTAINER Odoo S.A. <info@odoo.com>
+
+SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
+
+# Generate locale C.UTF-8 for postgres and general locale data
+ENV LANG C.UTF-8
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN apt update \
-    && apt install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         ca-certificates \
+        curl \
         dirmngr \
         fonts-noto-cjk \
         gnupg \
-        gosu \
-        gsfonts \
         libssl-dev \
         node-less \
         npm \
         python3-num2words \
+        python3-pdfminer \
         python3-pip \
         python3-phonenumbers \
         python3-pyldap \
@@ -23,7 +28,6 @@ RUN apt update \
         python3-slugify \
         python3-vobject \
         python3-watchdog \
-        python3-wheel \
         python3-xlrd \
         python3-xlwt \
         xz-utils \
@@ -33,23 +37,27 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-ENV PGVERSION=14
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-    && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-    && apt update  \
-    && apt install --no-install-recommends -y postgresql-client-$PGVERSION \
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+    && GNUPGHOME="$(mktemp -d)" \
+    && export GNUPGHOME \
+    && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
+    && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
+    && gpgconf --kill all \
+    && rm -rf "$GNUPGHOME" \
+    && apt-get update  \
+    && apt-get install --no-install-recommends -y postgresql-client \
     && rm -f /etc/apt/sources.list.d/pgdg.list \
     && rm -rf /var/lib/apt/lists/*
-
 
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
 
 # Install Odoo
 ENV ODOO_VERSION 14.0
-ARG ODOO_RELEASE=latest
-# ARG ODOO_SHA=13ab7feaaa6f94269bfe4ff8922363ee7aac617c
-RUN curl -o odoo.deb -sSL https://nightly.odoo.com/14.0/nightly/deb/odoo_14.0.latest_all.deb \
+ARG ODOO_RELEASE=20231106
+ARG ODOO_SHA=a50db3bf2d55c64bd51b6b56a2e3d0dbafc44894
+RUN curl -o odoo.deb -sSL https://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     # && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
     && apt-get -y install --no-install-recommends ./odoo.deb \
@@ -59,11 +67,10 @@ RUN curl -o odoo.deb -sSL https://nightly.odoo.com/14.0/nightly/deb/odoo_14.0.la
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
-# ADD ./custom /usr/local/lib/python3.8/dist-packages/odoo/addons
+
 RUN mkdir -p /mnt/extra-addons
 ADD ./custom/base_synchro /mnt/extra-addons
-# ENV ODOO_RC /var/lib/odoo/odoo.conf
-# ENV ODOO_BASE_PATH /usr/local/lib/python3.8/dist-packages/odoo/addons
+
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
