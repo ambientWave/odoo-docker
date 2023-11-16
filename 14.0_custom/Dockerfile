@@ -1,12 +1,10 @@
 FROM odoo:14
-RUN echo "$USER"
+RUN echo $USER
 
 RUN mkdir -p /mnt/extra-addons
-COPY ./custom/base_synchro /mnt/extra-addons/base_synchro
+ADD ./custom/base_synchro /mnt/extra-addons/base_synchro
 
-RUN chown odoo /etc/odoo/odoo.conf \
-    && mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons
+RUN chown -R odoo /mnt/extra-addons
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 
