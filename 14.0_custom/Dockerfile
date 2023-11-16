@@ -3,8 +3,8 @@ RUN whoami
 
 RUN mkdir -p /mnt/extra-addons
 ADD ./custom/base_synchro /mnt/extra-addons/base_synchro
-RUN chattr -i /mnt/extra-addons \
-    && chown -R root /mnt/extra-addons
+RUN chattr -V -ais /mnt/extra-addons \
+    && chown -R odoo /mnt/extra-addons
     
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
