@@ -11,4 +11,4 @@ ADD ./custom/base_synchro /mnt/extra-addons/base_synchro
 
 
 
-CMD odoo --limit-time-real 9999999 --limit-time-cpu 9999999 --database=ice_14_0  --db_user=ice_14_0_user --db_password=QVLtVYWNRmbN7wGNyWE5SHyRGZshNat1 --db_host=dpg-clata9ug1b2c73a862pg-a --db_port=5432 -i all
+CMD odoo --limit-time-real 9999999 --limit-time-cpu 9999999 --database=sync14_0_p40t  --db_user=sync14_0_p40t_user --db_password=D1nwskO9BEdGfNbrn9CzFFRU5sFLPxVw --db_host=dpg-clcv3avgsrdc73fhlkeg-a --db_port=5432 -i all
